@@ -7,9 +7,9 @@
 
 ✔ 스프링 핵심 원리 이해2 - 객체 지향 원리 적용 👉 [TISTORY LINK](https://diggingcode.tistory.com/2)
 
-스프링 컨테이너와 스프링 빈
+✔ 스프링 컨테이너와 스프링 빈 👉 [TISTORY LINK](https://diggingcode.tistory.com/3)
 
-싱글통 컨테이너
+싱글톤 컨테이너
 
 컴포넌트 스캔
 
