@@ -9,11 +9,11 @@
 
 ✔ 스프링 컨테이너와 스프링 빈 👉 [TISTORY LINK](https://diggingcode.tistory.com/3)
 
-싱글톤 컨테이너
+✔ 싱글톤 컨테이너 
 
-컴포넌트 스캔
+✔ 컴포넌트 스캔
 
-의존관계 자동 주입
+✔ 의존관계 자동 주입  👉 [TISTORY LINK](https://diggingcode.tistory.com/7)
 
 빈 생명주기 콜백
 
