@@ -11,9 +11,9 @@
 
 ✔ 싱글톤 컨테이너 
 
-✔ 컴포넌트 스캔
+✔ 컴포넌트 스캔 👉 [TISTORY LINK](https://diggingcode.tistory.com/7)
 
-✔ 의존관계 자동 주입  👉 [TISTORY LINK](https://diggingcode.tistory.com/7)
+✔ 의존관계 자동 주입   👉 [TISTORY LINK](https://diggingcode.tistory.com/8)
 
 빈 생명주기 콜백
 
