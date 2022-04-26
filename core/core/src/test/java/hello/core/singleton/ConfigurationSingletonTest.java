@@ -1,4 +1,4 @@
-package singleton;
+package hello.core.singleton;
 
 import hello.core.AppConfig;
 import hello.core.member.MemberRepository;
@@ -14,6 +14,7 @@ public class ConfigurationSingletonTest {
     @Test
     void configurationTest(){
         ApplicationContext ac = new AnnotationConfigApplicationContext(AppConfig.class);
+
         MemberServiceImpl memberService = ac.getBean("memberService", MemberServiceImpl.class);
         OrderServiceImpl orderService = ac.getBean("orderService", OrderServiceImpl.class);
         MemberRepository memberRepository = ac.getBean("memberRepository", MemberRepository.class);
