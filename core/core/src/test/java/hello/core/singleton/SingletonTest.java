@@ -1,10 +1,7 @@
-package singleton;
+package hello.core.singleton;
 
 import hello.core.AppConfig;
-import hello.core.member.Member;
 import hello.core.member.MemberService;
-import hello.core.member.MemberServiceImpl;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -25,7 +22,7 @@ public class SingletonTest {
         System.out.println("memberService2 = " + memberService2);
 
         //memberService!=memberService
-        assertThat(memberService1).isSameAs(memberService2);
+        assertThat(memberService1).isNotSameAs(memberService2);
     }
 
     @Test

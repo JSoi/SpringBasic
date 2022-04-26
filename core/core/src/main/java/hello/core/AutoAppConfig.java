@@ -19,9 +19,11 @@ import org.springframework.context.annotation.FilterType;
 //ComponentScan 역시 Component 어노테이션 포함
 public class AutoAppConfig {
     // 스프링 빈을 자동으로 긁어온다
+    /*
     @Bean(name="memoryMemberRepository")
     MemberRepository memberRepository(){
         return new MemoryMemberRepository();
     }
+    */
 
 }
