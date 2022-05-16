@@ -1,5 +1,7 @@
 package hello.servlet.web.frontcontroller.v1.controller;
 
+import hello.servlet.domain.member.Member;
+import hello.servlet.domain.member.MemberRepository;
 import hello.servlet.web.frontcontroller.v1.ControllerV1;
 
 import javax.servlet.RequestDispatcher;
@@ -7,13 +9,18 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
-public class MemberFormControllerV1 implements ControllerV1 {
+public class MemberListControllerV1 implements ControllerV1 {
+    private MemberRepository memberRepository = MemberRepository.getInstance();
+
     @Override
     public void process(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String viewPath = "/WEB-INF/views/new-form.jsp";
+        List<Member> members = memberRepository.findAll();
+        request.setAttribute("members", members);
+
+        String viewPath = "/WEB-INF/views/members.jsp";
         RequestDispatcher dispatcher = request.getRequestDispatcher(viewPath);
-        dispatcher.forward(request,response);
-        // 다른 서블릿이나 JSP로 이동할 수 있는 기능이며 서버 내부에서 다시 호출이 일어난다
+        dispatcher.forward(request, response);
     }
 }
