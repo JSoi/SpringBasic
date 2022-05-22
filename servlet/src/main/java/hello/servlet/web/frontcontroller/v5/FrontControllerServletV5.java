@@ -2,11 +2,9 @@ package hello.servlet.web.frontcontroller.v5;
 
 import hello.servlet.web.frontcontroller.ModelView;
 import hello.servlet.web.frontcontroller.MyView;
-import hello.servlet.web.frontcontroller.v3.ControllerV3;
 import hello.servlet.web.frontcontroller.v3.controller.MemberFormControllerV3;
 import hello.servlet.web.frontcontroller.v3.controller.MemberListControllerV3;
 import hello.servlet.web.frontcontroller.v3.controller.MemberSaveControllerV3;
-import hello.servlet.web.frontcontroller.v4.ControllerV4;
 import hello.servlet.web.frontcontroller.v4.controller.MemberFormControllerV4;
 import hello.servlet.web.frontcontroller.v4.controller.MemberListControllerV4;
 import hello.servlet.web.frontcontroller.v4.controller.MemberSaveControllerV4;
@@ -26,9 +24,8 @@ import java.util.Map;
 
 @WebServlet(name = "frontControllerServletV5", urlPatterns = "/front-controller/v5/*")
 public class FrontControllerServletV5 extends HttpServlet {
-    private Map<String, ControllerV4> controllerMap = new HashMap<>();
     private final Map<String, Object> handlerMappingMap = new HashMap<>();
-    private final List<MyHanderAdapter> handlerAdapters = new ArrayList<>();
+    private final List<MyHandlerAdapter> handlerAdapters = new ArrayList<>();
 
     public FrontControllerServletV5() {
         initHandlerMappingMap();
@@ -59,7 +56,7 @@ public class FrontControllerServletV5 extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return;
         }
-        MyHanderAdapter adapter = getHandlerAdapter(handler);
+        MyHandlerAdapter adapter = getHandlerAdapter(handler);
 
         ModelView mv = adapter.handle(request, response, handler);
 
@@ -72,8 +69,8 @@ public class FrontControllerServletV5 extends HttpServlet {
         return new MyView("/WEB-INF/views/" + viewName + ".jsp");
     }
 
-    private MyHanderAdapter getHandlerAdapter(Object handler) {
-        for (MyHanderAdapter adapter : handlerAdapters) {
+    private MyHandlerAdapter getHandlerAdapter(Object handler) {
+        for (MyHandlerAdapter adapter : handlerAdapters) {
             if (adapter.supports(handler)) {
                 return adapter;
             }
