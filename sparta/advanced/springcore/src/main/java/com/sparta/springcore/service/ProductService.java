@@ -4,29 +4,46 @@ import com.sparta.springcore.dto.ProductMyPriceRequestDto;
 import com.sparta.springcore.dto.ProductRequestDto;
 import com.sparta.springcore.model.Product;
 import com.sparta.springcore.repository.ProductRepository;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class ProductService {
+
     private final ProductRepository productRepository;
 
-    public Product createProduct(ProductRequestDto productRequestDto) {
-        return productRepository.save(new Product(productRequestDto));
+    @Autowired
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
     }
 
-    public Product updateProduct(Long id, ProductMyPriceRequestDto productMyPriceRequestDto) {
-        Product product = productRepository.findById(id).orElseThrow(() -> new NullPointerException("해당 아이디가 존재하지 않습니다"));
-        product.setMyprice(productMyPriceRequestDto.getMyprice());
+    public Product createProduct(ProductRequestDto requestDto, Long userId) {
+// 요청받은 DTO 로 DB에 저장할 객체 만들기
+        Product product = new Product(requestDto, userId);
+
         productRepository.save(product);
-        // 응답 보내기 (업데이트된 상품 id)
+
         return product;
     }
 
-    public List<Product> getProducts() {
+    public Product updateProduct(Long id, ProductMyPriceRequestDto requestDto) {
+        Product product = productRepository.findById(id)
+                .orElseThrow(() -> new NullPointerException("해당 아이디가 존재하지 않습니다."));
+        int myprice = requestDto.getMyprice();
+        product.setMyprice(myprice);
+        productRepository.save(product);
+
+        return product;
+    }
+
+    // 회원 ID 로 등록된 상품 조회
+    public List<Product> getProducts(Long userId) {
+        return productRepository.findAllByUserId(userId);
+    }
+
+    public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 }

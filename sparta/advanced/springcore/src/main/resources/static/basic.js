@@ -129,7 +129,8 @@ function addProduct(itemDto) {
 
 function setMyprice() {
     let myprice = $('#myprice').val();
-    if (myprice == '') {
+    console.log(JSON.stringify({myprice: myprice}));
+    if (myprice === '') {
         alert('올바른 가격을 입력해주세요');
         return;
     }
@@ -137,7 +138,7 @@ function setMyprice() {
         type: "PUT",
         url: `/api/products/${targetId}`,
         contentType: "application/json",
-        data: JSON.stringify({myprice: myprice}),
+        data: JSON.stringify({"myprice": myprice}),
         success: function (response) {
             $('#container').removeClass('active');
             alert('성공적으로 등록되었습니다.');
