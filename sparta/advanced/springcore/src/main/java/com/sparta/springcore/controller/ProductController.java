@@ -3,9 +3,11 @@ package com.sparta.springcore.controller;
 import com.sparta.springcore.dto.ProductMyPriceRequestDto;
 import com.sparta.springcore.dto.ProductRequestDto;
 import com.sparta.springcore.model.Product;
+import com.sparta.springcore.model.UserRoleEnum;
 import com.sparta.springcore.security.UserDetailsImpl;
 import com.sparta.springcore.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
@@ -50,8 +52,10 @@ public class ProductController {
         return productService.getProducts(userId);
     }
 
+    @Secured(UserRoleEnum.Authority.ADMIN)
     @GetMapping("/api/admin/products")
     public List<Product> getAdminProducts() {
+
 // 로그인 되어 있는 회원 테이블의 ID
         return productService.getAllProducts();
     }
