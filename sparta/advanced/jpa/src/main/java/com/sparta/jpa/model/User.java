@@ -1,4 +1,4 @@
-package com.sparta.jpa.domain;
+package com.sparta.jpa.model;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
