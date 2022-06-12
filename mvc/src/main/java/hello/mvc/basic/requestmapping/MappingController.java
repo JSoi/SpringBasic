@@ -1,16 +1,15 @@
 package hello.mvc.basic.requestmapping;
 
+import hello.mvc.basic.HelloData;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@Slf4j
 public class MappingController {
-    private Logger log = LoggerFactory.getLogger(getClass());
 
     @GetMapping(value = {"/hello-basic", "/hello-or"})
     public String helloBasic() {
@@ -51,8 +50,25 @@ public class MappingController {
     }
 
     @PostMapping(value = "/mapping-produce", produces = MediaType.TEXT_HTML_VALUE)
-    public String mappingProduces(){
+    public String mappingProduces() {
         log.info("mappingProduces");
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v1")
+    public String modelAttributeV1(@RequestParam String username, @RequestParam int age) {
+        HelloData helloData =new HelloData();
+        helloData.setUsername(username);
+        helloData.setAge(age);
+        log.info("username: {}, age : {}", helloData.getUsername(), helloData.getAge());
+        return "ok";
+    }
+
+    @ResponseBody
+    @RequestMapping("/model-attribute-v2")
+    public String modelAttributeV2(HelloData helloData) {
+        log.info("username: {}, age : {}", helloData.getUsername(), helloData.getAge());
         return "ok";
     }
 }

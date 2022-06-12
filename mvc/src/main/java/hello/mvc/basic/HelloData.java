@@ -1,2 +1,9 @@
-package hello.mvc.basic;public class HelloData {
+package hello.mvc.basic;
+
+import lombok.Data;
+
+@Data
+public class HelloData {
+    private String username;
+    private int age;
 }
