@@ -44,8 +44,11 @@ public class ValidationItemControllerV1 {
 
     @PostMapping("/add")
     public String addItem(@ModelAttribute Item item, RedirectAttributes redirectAttributes, Model model) {
+        // 검증 오류 결과를 보관한다
         Map<String, String> errors = new HashMap<>();
-        if (!StringUtils.hasText(item.getItemName())) {
+
+        // 검증 로직
+        if (!StringUtils.hasText(item.getItemName())) { // 문자열 기능
             errors.put("itemName", "상품 이름은 필수입니다");
         }
         if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() >= 1000000) {
@@ -58,17 +61,17 @@ public class ValidationItemControllerV1 {
         if (item.getPrice() != null && item.getQuantity() != null) {
             int resultPrice = item.getPrice() * item.getQuantity();
             if (resultPrice < 10000) {
-                errors.put("global", "가격 * 수량의 합은 10,000원 이상이어야 합니다. 현재 값 : " + resultPrice);
+                errors.put("globalError", "가격 * 수량의 합은 10,000원 이상이어야 합니다. 현재 값 : " + resultPrice);
             }
         }
-        // 검증 실패시 다시 입력 폼으로
+        // 검증 실패
         if(!errors.isEmpty()){
             log.error("errors={}",errors);
             model.addAttribute("errors", errors);
-            return "validation/v1/addForm";
+            return "validation/v1/addForm"; // 다시 입력 폼으로
         }
 
-        // 성공 로직
+        // 검증 성공
         Item savedItem = itemRepository.save(item);
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
