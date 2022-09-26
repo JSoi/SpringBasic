@@ -10,6 +10,9 @@ import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -24,6 +27,12 @@ import java.util.Map;
 public class ValidationItemControllerV2 {
 
     private final ItemRepository itemRepository;
+    private final ItemValidator itemValidator;
+
+    @InitBinder
+    public void init(WebDataBinder dataBinder){
+        dataBinder.addValidators(itemValidator);
+    }
 
     @GetMapping
     public String items(Model model) {
@@ -164,16 +173,27 @@ public class ValidationItemControllerV2 {
     }
 
     // getTarget, getObjectName, reject, rejectValue
-    @PostMapping("/add")
+//    @PostMapping("/add")
     public String addItemV4(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+
+        // 검증 실패
+        if (bindingResult.hasErrors()) {
+            log.error("errors={}", bindingResult);
+            // ModelAttribute에 담지 않아도 함께 담겨서 나가게 됨.
+            return "validation/v2/addForm"; // 다시 입력 폼으로
+        }
+
         // BindingResult - ModelAttribute에 보관된 결과
         // 검증 오류 결과를 보관한다
         log.info("objectName = {}", bindingResult.getObjectName());
         log.info("targetName = {}", bindingResult.getTarget());
         // 검증 로직
+        ValidationUtils.rejectIfEmptyOrWhitespace(bindingResult, "itemName", "required");
+        // 아래와 같은 기능
         if (!StringUtils.hasText(item.getItemName())) { // 문자열 기능
             // 아이템이 필드이므로 필드 단위의 에러를 송출한다.
 //            bindingResult.addError(new FieldError("item", "itemName", item.getItemName(), false, new String[]{"required.item.itemName"}, null, null));
+
             bindingResult.rejectValue("itemName", "required");
         }
         if (item.getPrice() == null || item.getPrice() < 1000 || item.getPrice() >= 1000000) {
@@ -194,7 +214,36 @@ public class ValidationItemControllerV2 {
                 bindingResult.reject("totalPriceMin", new Object[]{1000, resultPrice}, null);
             }
         }
+
+
+        // 검증 성공
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/validation/v2/items/{itemId}";
+    }
+
+//    @PostMapping("/add")
+    public String addItemV5(@ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
+
         // 검증 실패
+        itemValidator.validate(item, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            log.error("errors={}", bindingResult);
+            // ModelAttribute에 담지 않아도 함께 담겨서 나가게 됨.
+            return "validation/v2/addForm"; // 다시 입력 폼으로
+        }
+
+        // 검증 성공
+        Item savedItem = itemRepository.save(item);
+        redirectAttributes.addAttribute("itemId", savedItem.getId());
+        redirectAttributes.addAttribute("status", true);
+        return "redirect:/validation/v2/items/{itemId}";
+    }
+
+    @PostMapping("/add")
+    public String addItemV6(@Validated @ModelAttribute Item item, BindingResult bindingResult, RedirectAttributes redirectAttributes, Model model) {
         if (bindingResult.hasErrors()) {
             log.error("errors={}", bindingResult);
             // ModelAttribute에 담지 않아도 함께 담겨서 나가게 됨.

@@ -13,6 +13,7 @@ public class ItemValidator implements Validator {
     public boolean supports(Class<?> clazz) {
         return Item.class.isAssignableFrom(clazz);
     }
+    // 여러 개의 검증기를 분류할 때 사용된다.
 
     @Override
     public void validate(Object target, Errors errors) {
