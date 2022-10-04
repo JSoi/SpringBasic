@@ -59,6 +59,7 @@ public class HomeController {
     public String homeLoginV3(HttpServletRequest request, Model model) {
         // Guest도 접근이 가능해야 함
         HttpSession session = request.getSession();
+        session.setMaxInactiveInterval(1800);
         Member member = (Member) session.getAttribute(SessionConst.LOGIN_MEMBER);
         if (member == null) {
             return "home";
