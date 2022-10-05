@@ -1,7 +1,8 @@
-package hello.login.web;
+package hello.login.web.session;
 
 import hello.login.domain.member.Member;
 import hello.login.domain.member.MemberRepository;
+import hello.login.web.argumentresolver.Login;
 import hello.login.web.session.SessionConst;
 import hello.login.web.session.SessionManager;
 import lombok.RequiredArgsConstructor;
@@ -69,7 +70,7 @@ public class HomeController {
         return "loginHome";
     }
 
-    @GetMapping("/")
+//    @GetMapping("/")
     public String homeLoginV3Spring(@SessionAttribute(name = SessionConst.LOGIN_MEMBER, required = false) Member member, Model model) {
         // Guest도 접근이 가능해야 함
         if (member == null) {
@@ -77,6 +78,17 @@ public class HomeController {
         }
         // 세션이 유지되면 로그인으로 이동
         model.addAttribute("member", member);
+        return "loginHome";
+    }
+
+    @GetMapping("/")
+    public String homeLoginV3ArgumentResolver(@Login Member loginMember, Model model) {
+        // Guest도 접근이 가능해야 함
+        if (loginMember == null) {
+            return "home";
+        }
+        // 세션이 유지되면 로그인으로 이동
+        model.addAttribute("member", loginMember);
         return "loginHome";
     }
 }
