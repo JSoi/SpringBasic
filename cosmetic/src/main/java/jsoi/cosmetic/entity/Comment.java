@@ -3,8 +3,7 @@ package jsoi.cosmetic.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "COMMENTS")
-public class Comment {
+public class Comment extends TimeStamped {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -15,4 +14,15 @@ public class Comment {
     @Column
     private String content;
 
+    @ManyToOne
+    @JoinColumn(name = "PRODUCT_ID")
+    private Product product;
+
+    @ManyToOne
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 }
