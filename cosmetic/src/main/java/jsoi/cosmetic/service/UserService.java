@@ -1,7 +1,7 @@
 package jsoi.cosmetic.service;
 
-public class UserService {
-    public void addUser(){
+import jsoi.cosmetic.entity.User;
 
-    }
+public class UserService {
+
 }
