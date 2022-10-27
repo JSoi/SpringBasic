@@ -17,6 +17,7 @@ public class TestDataInit {
 
     @PostConstruct
     public void addUser() {
+        userRepository.deleteAll();
         User user = new User(null, "hi", "hi1234", "1234", null, null);
         userRepository.save(user);
     }
