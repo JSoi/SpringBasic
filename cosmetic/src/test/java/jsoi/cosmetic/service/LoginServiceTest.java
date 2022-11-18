@@ -40,5 +40,14 @@ class LoginServiceTest {
         Assertions.assertThat(loginTrialUser).isEqualTo(user);
     }
 
+    @Test
+    public void loginFail(){
+        //given
+        when(userRepository.findUserByUserId("testId")).thenReturn(Optional.of(user));
+        //when
+        User loginTrialFailUser = loginService.login("testId", "testpasswordwrong");
+        //then
+        Assertions.assertThat(loginTrialFailUser).isNull();
+    }
 
 }
