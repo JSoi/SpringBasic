@@ -35,6 +35,6 @@ public class DemoController {
 
     @PostMapping("/store")
     public Mono<PublicApiResponseDto> findAll(@RequestBody PublicApiRequestDto publicApiRequestDto) throws UnsupportedEncodingException {
-        return demoService.hap(publicApiRequestDto);
+        return demoService.giveMonoStore(publicApiRequestDto);
     }
 }
