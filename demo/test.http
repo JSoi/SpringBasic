@@ -1,0 +1,18 @@
+### ArgumentResolver Test - Version with No Header
+POST http://localhost:8080/argument/test
+content-type: application/json
+
+{
+  "userId": "userId",
+  "name": "test"
+}
+
+### ArgumentResolver Test - Version with Header
+POST http://localhost:8080/argument/test
+content-type: application/json
+Authorization: 1234
+
+{
+  "userId": "userId",
+  "name": "test"
+}
