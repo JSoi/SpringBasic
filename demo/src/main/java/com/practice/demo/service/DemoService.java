@@ -30,8 +30,8 @@ public class DemoService {
 
     }
 
-    public Mono<PublicApiResponseDto> giveMonoStore(PublicApiRequestDto publicApiRequestDto) throws UnsupportedEncodingException {
-        reactor.netty.http.client.HttpClient httpClient = HttpClient.create()
+    public Mono<PublicApiResponseDto> giveMonoStore(PublicApiRequestDto publicApiRequestDto)throws UnsupportedEncodingException {
+        HttpClient httpClient = HttpClient.create()
                 .option(ChannelOption.CONNECT_TIMEOUT_MILLIS, 5000)
                 .responseTimeout(Duration.ofMillis(5000))
                 .doOnConnected(conn ->
@@ -56,12 +56,12 @@ public class DemoService {
                                 .build())
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
-                .onStatus(HttpStatus::is4xxClientError, response -> {
-                    throw new IllegalAccessError("400");
-                })
-                .onStatus(HttpStatus::is5xxServerError, response -> {
-                    throw new IllegalAccessError("500");
-                })
+//                .onStatus(HttpStatus::is4xxClientError, response -> {
+//                    throw new IllegalAccessError("400");
+//                })
+//                .onStatus(HttpStatus::is5xxServerError, response -> {
+//                    throw new IllegalAccessError("500");
+//                })
                 .bodyToMono(PublicApiResponseDto.class).log();
     }
 

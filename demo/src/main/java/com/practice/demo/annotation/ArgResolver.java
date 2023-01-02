@@ -3,6 +3,7 @@ package com.practice.demo.annotation;
 import com.practice.demo.dto.ArgDto;
 import com.practice.demo.entity.ArgEntity;
 import com.practice.demo.mapper.ArgMapper;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpRequest;
@@ -11,7 +12,6 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Objects;
 
@@ -39,6 +39,6 @@ public class ArgResolver implements HandlerMethodArgumentResolver {
         ArgMapper argMapper = ArgMapper.INSTANCE;
         ArgEntity argEntity = argMapper.toEntity(ArgDto.builder().userId(authorization).build());
         log.warn("argEntity: {}", argEntity);
-        return ArgDto.builder().userId("hehe").name("Custom Test Name").build();
+        return ArgDto.builder().userId("hehe").name(authorization).build();
     }
 }

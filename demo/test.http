@@ -16,3 +16,12 @@ Authorization: 1234
   "userId": "userId",
   "name": "test"
 }
+
+### Validation Test
+POST http://localhost:8080/argument/test2
+content-type: application/json
+
+{
+"userId":"1234",
+"name":"a"
+}

@@ -1,9 +1,9 @@
 package com.practice.demo.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.data.annotation.LastModifiedDate;
-
-import javax.persistence.*;
 import java.time.ZonedDateTime;
 @Builder
 @NoArgsConstructor
