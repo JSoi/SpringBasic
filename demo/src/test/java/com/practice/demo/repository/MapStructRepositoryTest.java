@@ -1,14 +1,16 @@
 package com.practice.demo.repository;
 
-import com.practice.demo.converter.Converter;
-import com.practice.demo.dto.MapstructDto;
-import com.practice.demo.entity.MapStructEntity;
-import com.practice.demo.entity.MapStructEntityV2;
-import com.practice.demo.entity.TestV1;
-import com.practice.demo.entity.TestV2;
-import com.practice.demo.mapper.MapStructMapper;
-import com.practice.demo.mapper.MapStructMapperImpl;
-import com.practice.demo.mapper.MapStructMapperSpec;
+import com.practice.demo.mvc.converter.Converter;
+import com.practice.demo.mvc.dto.MapstructDto;
+import com.practice.demo.mvc.entity.MapStructEntity;
+import com.practice.demo.mvc.entity.MapStructEntityV2;
+import com.practice.demo.mvc.entity.TestV1;
+import com.practice.demo.mvc.entity.TestV2;
+import com.practice.demo.mvc.mapper.MapStructMapper;
+import com.practice.demo.mvc.mapper.MapStructMapperImpl;
+import com.practice.demo.mvc.mapper.MapStructMapperSpec;
+import com.practice.demo.mvc.repository.MapStructRepository;
+import com.practice.demo.mvc.repository.MapStructRepositoryV2;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
